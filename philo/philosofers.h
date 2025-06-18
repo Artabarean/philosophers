@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/18 12:38:29 by alex             ###   ########.fr       */
+/*   Updated: 2025/06/18 13:05:14 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <limits.h>
 
 typedef struct t_philo
 {
@@ -27,7 +28,8 @@ typedef struct t_philo
 
 void	argnum_check(void);
 t_philo *struct_init(t_philo *aux, char *argv[]);
-int 	ft_atoi(char *arg);
-void	philo(t_philo *aux);
+long 	ft_atol(char *arg);
+int		philo(t_philo *aux);
+int 	checkargv(t_philo *aux);
 
 #endif

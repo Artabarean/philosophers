@@ -6,7 +6,7 @@
 #    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 11:54:40 by atabarea          #+#    #+#              #
-#    Updated: 2025/06/18 12:19:15 by alex             ###   ########.fr        #
+#    Updated: 2025/06/18 13:11:47 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME = philosofers
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = src/philosofers.c src/argnum_check.c src/struct_init.c src/ft_atoi.c
+SRC = src/philosofers.c src/argnum_check.c src/struct_init.c src/ft_atoi.c\
+	src/checkargv.c
 
 OBJ = $(SRC:.c=.o)
 
