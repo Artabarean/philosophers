@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/18 12:31:46 by alex             ###   ########.fr       */
+/*   Updated: 2025/06/18 12:38:29 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ typedef struct t_philo
 void	argnum_check(void);
 t_philo *struct_init(t_philo *aux, char *argv[]);
 int 	ft_atoi(char *arg);
+void	philo(t_philo *aux);
 
 #endif

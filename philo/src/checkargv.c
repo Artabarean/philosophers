@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosofers.c                                      :+:      :+:    :+:   */
+/*   checkargv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/18 12:46:05 by alex             ###   ########.fr       */
+/*   Created: 2025/06/18 12:38:53 by alex              #+#    #+#             */
+/*   Updated: 2025/06/18 12:44:55 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosofers.h"
 
-int	philo(t_philo *aux)
+int checkargv(t_philo *aux)
 {
-	if (checkargv(aux) == 1);
-		return (1);
-}
-
-int	main(int argc, char *argv[])
-{
-	t_philo *aux;
-
-	aux = NULL;
-	if (argc < 2 || argc > 6)
-		return (argnum_check(), 0);
-	struct_init(aux, argv);
-	if (philo(aux) == 1);
-		return(1);
-	return (0);
+    if (aux->philos > 200)
+        return (1);
+    if (aux->dietime < aux->eattime || aux->dietime < 1 || aux->eattime < 1)
+        return (1);
+    if (aux->sleeptime < 1)
+        return (1);
 }
