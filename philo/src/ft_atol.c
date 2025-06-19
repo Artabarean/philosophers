@@ -1,18 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argnum_check.c                                     :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 11:53:17 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/19 10:23:49 by atabarea         ###   ########.fr       */
+/*   Created: 2025/06/18 12:05:08 by alex              #+#    #+#             */
+/*   Updated: 2025/06/19 10:23:42 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void	argnum_check(void)
+long	ft_atol(char *arg)
 {
-	write(1, "Error:\nthe number of arguments passed is invalid", 49);	
+	int		i;
+	long	num;
+
+	i = 0;
+	num = 0;
+	while ((arg[i] == ' ' || arg[i] == '\t'))
+		i++;
+	while ((arg[i] == '-' || arg[i] == '+'))
+	{
+		if (arg[i] == '-')
+			return (-1);
+		i++;
+	}
+	while (arg[i])
+	{
+		num = num * 10 + ((arg[i] - '0'));
+		i++;
+	}
+	if (num > INT_MAX)
+		return (-1);
+	return (num);
 }

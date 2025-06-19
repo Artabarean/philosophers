@@ -3,24 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
+#    By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 11:54:40 by atabarea          #+#    #+#              #
-#    Updated: 2025/06/18 13:11:47 by alex             ###   ########.fr        #
+#    Updated: 2025/06/19 10:22:12 by atabarea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosofers
+NAME = philosophers
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = src/philosofers.c src/argnum_check.c src/struct_init.c src/ft_atoi.c\
-	src/checkargv.c
+SRC = src/philosophers.c src/argnum_check.c src/struct_init.c src/ft_atol.c\
+	src/checkargv.c src/philos_init.c
 
 OBJ = $(SRC:.c=.o)
 
-INCLUDE = philosofers.h
+INCLUDE = philosophers.h
 
 all: $(NAME)
 

@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argnum_check.c                                     :+:      :+:    :+:   */
+/*   philos_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 11:53:17 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/19 10:23:49 by atabarea         ###   ########.fr       */
+/*   Created: 2025/06/19 09:59:30 by atabarea          #+#    #+#             */
+/*   Updated: 2025/06/19 10:25:58 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void	argnum_check(void)
+t_philosopher	*philos_init(t_aux *aux)
 {
-	write(1, "Error:\nthe number of arguments passed is invalid", 49);	
+	t_philosopher *philos;
+	
+	philos = malloc(sizeof(t_philosopher) * aux->philosnum);
+	return (philos);
 }
