@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/19 10:26:08 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:46:06 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	philostart(t_aux *aux, t_philosopher *philos)
 		philos[i].left_fork = &aux->forks[i];
 		philos[i].right_fork = &aux->forks[(i + 1) % aux->philosnum];
 		philos[i].aux = &aux;
-		pthread_create(&threads[i], NULL, philo_routine(), &philos[i]);
+		pthread_create(&threads[i], NULL, philo_routine, &philos[i]);
 	}
 	return (0);
 }
@@ -45,6 +45,6 @@ int	main(int argc, char *argv[])
 		return (printf("Error:\none of the numbers is too large\n"));
 	philos = philos_init(aux);
 	if (philostart(aux, philos) == 1)
-		return(1);
+		return(free(philos), free(aux), 1);
 	return (0);
 }

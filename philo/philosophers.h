@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/19 10:25:46 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/06/19 10:39:22 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_aux
 	int				eattime;
     int 			mealnum;
 	int				death;
+	int				stop;
 	long long		start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	printofmutex;
@@ -43,6 +44,7 @@ typedef struct s_philosopher
 }			t_philosopher;
 
 void	argnum_check(void);
+void	*philo_routine(void *arg);
 t_aux 	*struct_init(t_aux *aux, char *argv[]);
 long 	ft_atol(char *arg);
 int		philostart(t_aux *aux, t_philosopher *philos);
