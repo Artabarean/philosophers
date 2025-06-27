@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/19 10:39:22 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/06/27 11:43:48 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_philosopher
 	t_aux			*aux;
 }			t_philosopher;
 
+void    think(t_philosopher *philo, int i);
 void	argnum_check(void);
 void	*philo_routine(void *arg);
 t_aux 	*struct_init(t_aux *aux, char *argv[]);
