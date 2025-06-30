@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/27 11:43:48 by alex             ###   ########.fr       */
+/*   Updated: 2025/06/30 13:40:42 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,17 @@ typedef struct s_philosopher
 	t_aux			*aux;
 }			t_philosopher;
 
-void    think(t_philosopher *philo, int i);
-void	argnum_check(void);
-void	*philo_routine(void *arg);
-t_aux 	*struct_init(t_aux *aux, char *argv[]);
-long 	ft_atol(char *arg);
-int		philostart(t_aux *aux, t_philosopher *philos);
-int 	checkargv(t_aux *aux);
+void    		think(t_philosopher *philo, int i);
+void			argnum_check(void);
+void			*philo_routine(void *arg);
+t_aux 			*struct_init(t_aux *aux, char *argv[], int argc);
+long 			ft_atol(char *arg);
+t_philosopher	*philos_init(t_aux *aux);
+int				philostart(t_aux *aux, t_philosopher *philos);
+int 			checkargv(t_aux *aux);
+int 			zeros_in_int(char **a);
+int     		max_min_int(char **arg);
+int				check_status(int stop, int i, char *str);
+
 
 #endif

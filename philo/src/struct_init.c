@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 12:11:12 by alex              #+#    #+#             */
-/*   Updated: 2025/06/19 10:25:12 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:38:26 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,17 @@ int     max_min_int(char **arg)
 }
 
 
-t_aux *struct_init(t_aux *aux, char *argv[])
+t_aux *struct_init(t_aux *aux, char *argv[], int argc)
 {
     aux = (t_aux *)malloc(sizeof(t_aux));
     aux->philosnum = ft_atol(argv[1]);
     aux->eattime = ft_atol(argv[2]);
     aux->dietime = ft_atol(argv[3]);
     aux->sleeptime = ft_atol(argv[4]);
-    aux->mealnum = ft_atol(argv[5]);
+    if (argc == 6)
+        aux->mealnum = ft_atol(argv[5]);
+    else
+        aux->mealnum = 0;
     if (aux->philosnum == -1 || aux->eattime == -1 || aux->sleeptime == -1
         || aux->dietime == -1)
         return (aux = NULL);
