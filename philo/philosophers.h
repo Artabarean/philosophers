@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/30 13:40:42 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/01 11:08:28 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <pthread.h>
+# include <time.h>
+# include <sys/time.h>
 
 typedef struct s_aux
 {
@@ -43,9 +45,14 @@ typedef struct s_philosopher
 	t_aux			*aux;
 }			t_philosopher;
 
-void    		think(t_philosopher *philo, int i);
+void    		think(t_philosopher *philo);
+int 			pickforks(t_philosopher *philo);
+void    		eat(t_philosopher *philo);
+void    		put_down_fork(t_philosopher *philo);
+void    		philo_sleeps(t_philosopher *philo);
 void			argnum_check(void);
 void			*philo_routine(void *arg);
+long long   	get_current_time(void);
 t_aux 			*struct_init(t_aux *aux, char *argv[], int argc);
 long 			ft_atol(char *arg);
 t_philosopher	*philos_init(t_aux *aux);
@@ -53,7 +60,7 @@ int				philostart(t_aux *aux, t_philosopher *philos);
 int 			checkargv(t_aux *aux);
 int 			zeros_in_int(char **a);
 int     		max_min_int(char **arg);
-int				check_status(int stop, int i, char *str);
+int 			check_death(t_philosopher *philo);
 
 
 #endif

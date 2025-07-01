@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_actions.c                                    :+:      :+:    :+:   */
+/*   get_current_time.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/07/01 11:07:33 by alex             ###   ########.fr       */
+/*   Created: 2025/07/01 10:36:14 by alex              #+#    #+#             */
+/*   Updated: 2025/07/01 10:58:05 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void    think(t_philosopher *philo)
+long long   get_current_time(void)
 {
-    
-}
+    struct timeval tv;
 
-int pickforks(t_philosopher *philo)
-{
-    
-}
-
-void    eat(t_philosopher *philo)
-{
-
-}
-
-void    put_down_fork(t_philosopher *philo)
-{
-
-}
-
-void    philo_sleeps(t_philosopher *philo)
-{
-    
+    gettimeofday(&tv, NULL);
+    return (long long)(tv.tv_sec) * 1000 + (tv.tv_usec / 1000);
 }
