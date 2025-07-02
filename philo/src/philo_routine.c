@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/01 10:35:12 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/02 10:20:02 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ void	*philo_routine(void *arg)
         eat(philo);
         put_fork_down(philo);
         if (philo->aux->mealnum != -1 && philo->meals_eaten >= philo->aux->mealnum)
-        {
             break;
-        }
         philo_sleeps(philo);
     }
     return (NULL);
