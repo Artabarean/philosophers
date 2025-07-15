@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/06/30 13:38:00 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/15 12:09:15 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	philostart(t_aux *aux, t_philosopher *philos)
 		philos[i].left_fork = &aux->forks[i];
 		philos[i].right_fork = &aux->forks[(i + 1) % aux->philosnum];
 		philos[i].aux = aux;
-		pthread_create(&threads[i], NULL, philo_routine, &philos[i]);
+		pthread_create(&threads[i], NULL, philo_routine(&philos[i]), &philos[i]);
 		i++;
 	}
 	return (0);
