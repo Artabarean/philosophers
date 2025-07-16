@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/15 12:13:37 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/16 11:37:36 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void    		eat(t_philosopher *philo);
 void    		put_down_fork(t_philosopher *philo);
 void    		philo_sleeps(t_philosopher *philo);
 void			argnum_check(void);
-void			*philo_routine(t_philosopher *philo);
+void			*philo_routine(void *arg);
 long long   	get_current_time(void);
 t_aux 			*struct_init(t_aux *aux, char *argv[], int argc);
 long 			ft_atol(char *arg);

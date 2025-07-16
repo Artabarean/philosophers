@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 12:11:12 by alex              #+#    #+#             */
-/*   Updated: 2025/07/14 16:21:20 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/16 11:52:58 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_aux *struct_init(t_aux *aux, char *argv[], int argc)
     aux->dietime = ft_atol(argv[3]);
     aux->sleeptime = ft_atol(argv[4]);
     aux->start_time = get_current_time();
+    aux->forks = malloc(sizeof (pthread_mutex_t) * aux->philosnum);
     if (argc == 6)
         aux->mealnum = ft_atol(argv[5]);
     else
