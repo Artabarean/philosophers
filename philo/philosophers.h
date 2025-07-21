@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/17 10:34:38 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/21 11:30:16 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void    		philo_sleeps(t_philosopher *philo);
 void			argnum_check(void);
 void			*philo_routine(void *arg);
 long long   	get_current_time(void);
-long long   	get_elapsed_tm(void);
+void 			ft_usleep(int condition);
 t_aux 			*struct_init(t_aux *aux, char *argv[], int argc);
 long 			ft_atol(char *arg);
 t_philosopher	*philos_init(t_aux *aux);

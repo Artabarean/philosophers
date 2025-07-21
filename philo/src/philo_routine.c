@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/17 10:35:45 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/21 11:44:37 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int check_death(t_philosopher *philo)
         return (1);
     }
     pthread_mutex_unlock(&philo->aux->deathofmutex);
-    time = get_elapsed_tm();
+    time = get_current_time() - philo->aux->start_time;
     if (time - philo->last_meal_time > philo->aux->dietime)
     {
         pthread_mutex_lock(&philo->aux->deathofmutex);
@@ -52,11 +52,15 @@ void	*philo_routine(void *arg)
             break;
         if (pickforks(philo) == -1)
             break;
+        ft_usleep(100);
         eat(philo);
+        ft_usleep(100);
         put_down_fork(philo);
-        if (philo->aux->mealnum != -1 && philo->meals_eaten >= philo->aux->mealnum)
+        ft_usleep(100);
+        if (philo->aux->mealnum && philo->meals_eaten >= philo->aux->mealnum)
             break;
         philo_sleeps(philo);
+        ft_usleep(100);
     }
     return (NULL);
 }

@@ -6,17 +6,18 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/07/17 10:41:24 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/21 11:39:22 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void    think(t_philosopher *philo)
+void think(t_philosopher *philo)
 {
-    long long   tm;
+    long long tm;
 
-    tm = get_elapsed_tm();
+    ft_usleep(100);
+    tm = get_current_time() - philo->aux->start_time;
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (!philo->aux->stop)
         printf("%lld %d is thinking\n", tm, philo->id);
@@ -29,7 +30,7 @@ int pickforks(t_philosopher *philo)
     pthread_mutex_t *sd_fk;
     long long       tm;
 
-    tm = get_elapsed_tm();
+    tm = get_current_time() - philo->aux->start_time;
     if (philo->id % 2 == 0)
     {
         fst_fk = philo->left_fork;
@@ -61,7 +62,7 @@ void    eat(t_philosopher *philo)
 {
     long long   tm;
 
-    tm = get_elapsed_tm();    
+    tm = get_current_time() - philo->aux->start_time;    
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (!philo->aux->stop)
         printf("%lld %d is eating\n", tm, philo->id);
@@ -72,7 +73,7 @@ void    put_down_fork(t_philosopher *philo)
 {
     long long   tm;
 
-    tm = get_elapsed_tm();
+    tm = get_current_time() - philo->aux->start_time;
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (!philo->aux->stop)
         printf("%lld %d puts down both forks\n", tm, philo->id);
@@ -83,7 +84,7 @@ void    philo_sleeps(t_philosopher *philo)
 {
     long long   tm;
 
-    tm = get_elapsed_tm();
+    tm = get_current_time() - philo->aux->start_time;
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (!philo->aux->stop)
         printf("%lld %d sleeps\n", tm, philo->id);
