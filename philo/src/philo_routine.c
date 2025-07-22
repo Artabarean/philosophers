@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/21 11:44:37 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/22 12:57:36 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,16 @@ void	*philo_routine(void *arg)
         think(philo);
         if (check_death(philo))
             break;
+        ft_usleep(100);
         if (pickforks(philo) == -1)
             break;
-        ft_usleep(100);
         eat(philo);
-        ft_usleep(100);
+        if (check_death(philo))
+            break;
         put_down_fork(philo);
-        ft_usleep(100);
         if (philo->aux->mealnum && philo->meals_eaten >= philo->aux->mealnum)
             break;
         philo_sleeps(philo);
-        ft_usleep(100);
     }
     return (NULL);
 }

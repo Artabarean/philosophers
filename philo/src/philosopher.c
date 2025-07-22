@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/21 11:36:49 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/22 13:16:48 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ int	philostart(t_aux *aux, t_philosopher *philos)
         pthread_join(thds[i], NULL);
         i++;
     }
-	free(thds);
-	return (0);
+	return (free(thds), 0);
 }
 
 int	main(int argc, char *argv[])
@@ -52,6 +51,8 @@ int	main(int argc, char *argv[])
 	if (aux == NULL)
 		return (printf("Error:\none of the numbers is too large\n"));
 	philos = philos_init(aux);
+	if (checkargv(aux) == 1)
+		return (free(philos), free(aux), 1);
 	if (philostart(aux, philos) == 1)
 		return(free(philos), free(aux), 1);
 	return (0);

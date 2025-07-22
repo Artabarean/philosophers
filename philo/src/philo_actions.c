@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/07/21 11:39:22 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/22 13:00:14 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,20 @@ void think(t_philosopher *philo)
 
 int pickforks(t_philosopher *philo)
 {
-    pthread_mutex_t *fst_fk;
-    pthread_mutex_t *sd_fk;
+    pthread_mutex_t *fork;
     long long       tm;
 
     tm = get_current_time() - philo->aux->start_time;
     if (philo->id % 2 == 0)
-    {
-        fst_fk = philo->left_fork;
-        sd_fk = philo->right_fork;
-    }
+        fork = philo->left_fork;
     else
-    {
-        fst_fk = philo->right_fork;
-        sd_fk = philo->left_fork;
-    }
-    pthread_mutex_lock(fst_fk);
+        fork = philo->right_fork;
+    pthread_mutex_lock(fork);
     if (philo->aux->stop)
-        return (pthread_mutex_unlock(fst_fk), -1);
+        return (pthread_mutex_unlock(fork), -1);
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (!philo->aux->stop)
-        printf("%lld %d took a fork\n", tm, philo->id);
-    pthread_mutex_unlock(&philo->aux->printofmutex);
-    pthread_mutex_lock(sd_fk);
-    if (philo->aux->stop)
-        return (pthread_mutex_unlock(fst_fk), pthread_mutex_unlock(sd_fk), -1);
-    pthread_mutex_lock(&philo->aux->printofmutex);
-    if (!philo->aux->stop)
-        printf("%lld %d took a fork\n", tm, philo->id);
+        printf("%lld %d picked up a fork\n", tm, philo->id);
     pthread_mutex_unlock(&philo->aux->printofmutex);
     return (0);
 }
@@ -62,6 +48,7 @@ void    eat(t_philosopher *philo)
 {
     long long   tm;
 
+    ft_usleep(100);
     tm = get_current_time() - philo->aux->start_time;    
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (!philo->aux->stop)
@@ -73,6 +60,7 @@ void    put_down_fork(t_philosopher *philo)
 {
     long long   tm;
 
+    ft_usleep(100);
     tm = get_current_time() - philo->aux->start_time;
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (!philo->aux->stop)
@@ -84,6 +72,7 @@ void    philo_sleeps(t_philosopher *philo)
 {
     long long   tm;
 
+    ft_usleep(100);
     tm = get_current_time() - philo->aux->start_time;
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (!philo->aux->stop)
