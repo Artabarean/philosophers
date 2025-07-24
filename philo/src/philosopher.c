@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/24 13:02:04 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:30:55 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	main(int argc, char *argv[])
 	philos->f1inuse = 0;
 	philos->f2inuse = 0;
 	if (checkargv(aux) == 1)
+	{
+		printf("Arguments passed are invalid\n");
 		return (free(philos), free(aux), 1);
+	}
 	if (philostart(aux, philos) == 1)
 		return(free(philos), free(aux), 1);
 	return (0);
