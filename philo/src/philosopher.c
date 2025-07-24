@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/22 13:16:48 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/24 13:02:04 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int	philostart(t_aux *aux, t_philosopher *philos)
 {
 	int			i;
-	pthread_t	*thds = malloc(sizeof(pthread_t) * aux->philosnum);
+	pthread_t	*thds;
+	pthread_t	monitor_thread;
 
 	i = 0;
-	if (checkargv(aux) == 1)
-		return (free(thds), 1);
+	thds = malloc(sizeof(pthread_t) * aux->philosnum);
 	while (i < aux->philosnum)
 	{
 		philos[i].id = i + 1;
@@ -29,12 +29,14 @@ int	philostart(t_aux *aux, t_philosopher *philos)
 		pthread_create(&thds[i], NULL, philo_routine, &philos[i]);
 		i++;
 	}
+	pthread_create(&monitor_thread, NULL, monitor, (void *)philos);
 	i = 0;
     while (i < aux->philosnum)
     {
         pthread_join(thds[i], NULL);
         i++;
     }
+	pthread_join(monitor_thread, NULL);
 	return (free(thds), 0);
 }
 
@@ -51,6 +53,8 @@ int	main(int argc, char *argv[])
 	if (aux == NULL)
 		return (printf("Error:\none of the numbers is too large\n"));
 	philos = philos_init(aux);
+	philos->f1inuse = 0;
+	philos->f2inuse = 0;
 	if (checkargv(aux) == 1)
 		return (free(philos), free(aux), 1);
 	if (philostart(aux, philos) == 1)

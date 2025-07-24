@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/24 11:36:47 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/24 12:57:04 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_philosopher
 	int				id;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
+	int				f1inuse;
+	int				f2inuse;
 	long long		last_meal_time;
 	int				meals_eaten;
 	t_aux			*aux;
@@ -51,10 +53,12 @@ void    		eat(t_philosopher *philo);
 void    		put_down_fork(t_philosopher *philo);
 void    		philo_sleeps(t_philosopher *philo);
 void			argnum_check(void);
+int 			check_deaths(t_philosopher *philos, int index, int total);
 int				right_first(t_philosopher *philo, long long tm);
 int				left_first(t_philosopher *philo, long long tm);
 void			*philo_routine(void *arg);
 long long   	get_current_time(void);
+void 			*monitor(void *arg);
 void 			ft_usleep(int condition);
 t_aux 			*struct_init(t_aux *aux, char *argv[], int argc);
 long 			ft_atol(char *arg);
