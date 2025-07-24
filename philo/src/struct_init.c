@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 12:11:12 by alex              #+#    #+#             */
-/*   Updated: 2025/07/24 14:27:29 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:47:04 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int     max_min_int(char **arg)
     }
     return (0);
 }
-
 
 t_aux *struct_init(t_aux *aux, char *argv[], int argc)
 {
