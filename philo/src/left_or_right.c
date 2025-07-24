@@ -6,24 +6,27 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/24 12:41:35 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:24:14 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
+void    wait(t_philosopher *philo, long long tm, int *printed)
+{
+    printf("%lld %d is waiting\n", tm, philo->id);
+    *printed = 1;
+}
+
 int	left_first(t_philosopher *philo, long long tm)
 {
     int printed;
 
+    printed = 0;
     while (philo->f1inuse == 1 || philo->f2inuse == 1)
     {
-        if (!printed)
-        {
-            printf("%lld %d is waiting\n", tm, philo->id);
-            printed = 0;
-            ft_usleep(100);
-        }
+        if (printed == 0)
+            wait(philo, tm, &printed);
     }
 	pthread_mutex_lock(philo->left_fork);
     if (philo->aux->stop)

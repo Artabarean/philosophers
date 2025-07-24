@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/24 12:56:41 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:16:53 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,28 @@ int check_death(t_philosopher *philo)
     return stop;
 }
 
-int check_deaths(t_philosopher *philos, int index, int total)
+int check_deaths(t_philosopher *philos, int idx, int ttl)
 {
     long long now;
     long long diff;
 
-    if (index == total)
+    if (idx == ttl)
         return (0);
     now = get_current_time();
-    diff = now - philos[index].last_meal_time;
-    pthread_mutex_lock(&philos[index].aux->deathofmutex);
-    if (philos[index].aux->stop == 0 && diff > philos[index].aux->dietime)
+    diff = now - philos[idx].last_meal_time;
+    pthread_mutex_lock(&philos[idx].aux->deathofmutex);
+    if (philos[idx].aux->stop == 0 && diff > philos[idx].aux->dietime)
     {
-        philos[index].aux->stop = 1;
-        pthread_mutex_unlock(&philos[index].aux->deathofmutex);
+        philos[idx].aux->stop = 1;
+        pthread_mutex_unlock(&philos[idx].aux->deathofmutex);
 
-        pthread_mutex_lock(&philos[index].aux->printofmutex);
-        printf("%lld %d died\n", now - philos[index].aux->start_time, philos[index].id);
-        pthread_mutex_unlock(&philos[index].aux->printofmutex);
+        pthread_mutex_lock(&philos[idx].aux->printofmutex);
+        printf("%lld %d died\n", now - philos[idx].aux->start_time, philos[idx].id);
+        pthread_mutex_unlock(&philos[idx].aux->printofmutex);
         return (1);
     }
-    pthread_mutex_unlock(&philos[index].aux->deathofmutex);
-    return (check_deaths(philos, index + 1, total));
+    pthread_mutex_unlock(&philos[idx].aux->deathofmutex);
+    return (check_deaths(philos, idx + 1, ttl));
 }
 
 void *monitor(void *arg)
