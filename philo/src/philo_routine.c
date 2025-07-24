@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/22 12:57:36 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/24 11:13:58 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@ void	*philo_routine(void *arg)
     {
         if (check_death(philo))
             break;
-        think(philo);
-        if (check_death(philo))
-            break;
-        ft_usleep(100);
         if (pickforks(philo) == -1)
+            break;
+        if (check_death(philo))
             break;
         eat(philo);
         if (check_death(philo))
@@ -60,6 +58,9 @@ void	*philo_routine(void *arg)
         if (philo->aux->mealnum && philo->meals_eaten >= philo->aux->mealnum)
             break;
         philo_sleeps(philo);
+        if (check_death(philo))
+            break;
+        think(philo);
     }
     return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/21 11:30:16 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/24 11:36:47 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void    		eat(t_philosopher *philo);
 void    		put_down_fork(t_philosopher *philo);
 void    		philo_sleeps(t_philosopher *philo);
 void			argnum_check(void);
+int				right_first(t_philosopher *philo, long long tm);
+int				left_first(t_philosopher *philo, long long tm);
 void			*philo_routine(void *arg);
 long long   	get_current_time(void);
 void 			ft_usleep(int condition);
