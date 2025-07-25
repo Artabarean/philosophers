@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   left_or_right.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/24 14:24:14 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/25 11:23:35 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void    wait(t_philosopher *philo, long long tm, int *printed)
+void    wait(t_philosopher *philo, long long tm)
 {
     printf("%lld %d is waiting\n", tm, philo->id);
-    *printed = 1;
+    while (1)
+    {
+        if (philo->f1inuse == 0 || philo->f2inuse == 0)
+            break;
+    }
 }
 
 int	left_first(t_philosopher *philo, long long tm)
 {
-    int printed;
-
-    printed = 0;
-    while (philo->f1inuse == 1 || philo->f2inuse == 1)
+    if (forksinuse(philo) == 1)
     {
-        if (printed == 0)
-            wait(philo, tm, &printed);
+        wait(philo, tm);
     }
 	pthread_mutex_lock(philo->left_fork);
     if (philo->aux->stop)
@@ -49,16 +49,9 @@ int	left_first(t_philosopher *philo, long long tm)
 
 int	right_first(t_philosopher *philo, long long tm)
 {
-    int printed;
-
-    while (philo->f1inuse == 1 || philo->f2inuse == 1)
+    if (forksinuse(philo) == 1)
     {
-        if (!printed)
-        {
-            printf("%lld %d is waiting\n", tm, philo->id);
-            printed = 0;
-            ft_usleep(100);
-        }
+        wait(philo, tm);
     }
 	pthread_mutex_lock(philo->right_fork);
     if (philo->aux->stop)

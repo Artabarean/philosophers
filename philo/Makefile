@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+         #
+#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 11:54:40 by atabarea          #+#    #+#              #
-#    Updated: 2025/07/24 11:36:10 by atabarea         ###   ########.fr        #
+#    Updated: 2025/07/25 11:22:16 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC = src/philosopher.c src/argnum_check.c src/struct_init.c src/ft_atol.c\
 	src/checkargv.c src/philos_init.c src/philo_routine.c src/philo_actions.c\
-	src/get_current_time.c src/left_or_right.c
+	src/get_current_time.c src/left_or_right.c src/forksinuse.c
 
 OBJ = $(SRC:.c=.o)
 

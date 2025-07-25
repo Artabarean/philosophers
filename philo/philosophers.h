@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/24 12:57:04 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/25 11:21:46 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_philosopher
 void    		think(t_philosopher *philo);
 int 			pickforks(t_philosopher *philo);
 void    		eat(t_philosopher *philo);
+int 			forksinuse(t_philosopher *philo);
 void    		put_down_fork(t_philosopher *philo);
 void    		philo_sleeps(t_philosopher *philo);
 void			argnum_check(void);
