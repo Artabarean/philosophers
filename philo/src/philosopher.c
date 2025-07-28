@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/25 11:21:51 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/28 14:56:41 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ int	main(int argc, char *argv[])
 	if (aux == NULL)
 		return (printf("Error:\none of the numbers is too large\n"));
 	philos = philos_init(aux);
-	philos->f1inuse = 0;
-	philos->f2inuse = 0;
 	if (checkargv(aux) == 1)
 	{
 		printf("Arguments passed are invalid\n");

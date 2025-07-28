@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/07/24 12:33:05 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/28 15:37:48 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int pickforks(t_philosopher *philo)
     tm = get_current_time() - philo->aux->start_time;
     if (philo->id % 2 == 0)
     {
-        if (left_first(philo, tm) == 1)
-        return (-1);
+        if (left_first(philo, tm) == 1 || right_first(philo, tm) == 1)
+            return (-1);
     }
     else
     {
-        if (right_first(philo, tm) == 1)
+        if (right_first(philo, tm) == 1 || left_first(philo, tm) == 1)
         return (-1);
     }
     return (0);
@@ -46,7 +46,8 @@ void    eat(t_philosopher *philo)
 {
     long long   tm;
 
-    tm = get_current_time() - philo->aux->start_time;    
+    philo->last_meal_time = get_current_time();
+    tm = philo->last_meal_time - philo->aux->start_time;    
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (!philo->aux->stop)
         printf("%lld %d is eating\n", tm, philo->id);
@@ -55,10 +56,13 @@ void    eat(t_philosopher *philo)
 
 void    put_down_fork(t_philosopher *philo)
 {
+    pthread_mutex_lock(&philo->aux->fork_state_mutex);
+    philo->aux->fork_use[philo->id - 1] = 0;
+    philo->aux->fork_use[(philo->id) % philo->aux->philosnum] = 0;
+    pthread_mutex_unlock(&philo->aux->fork_state_mutex);
     pthread_mutex_unlock(philo->left_fork);
-    philo->f1inuse = 0;
     pthread_mutex_unlock(philo->right_fork);
-    philo->f2inuse = 0;
+    
 }
 
 void    philo_sleeps(t_philosopher *philo)

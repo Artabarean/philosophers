@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/25 11:21:46 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/28 15:25:19 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ typedef struct s_aux
 	int				eattime;
     int 			mealnum;
 	int				death;
+	int				*fork_use;
 	int				stop;
 	long long		start_time;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t fork_state_mutex;
 	pthread_mutex_t	printofmutex;
 	pthread_mutex_t deathofmutex;
 }               t_aux;
@@ -40,8 +42,6 @@ typedef struct s_philosopher
 	int				id;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
-	int				f1inuse;
-	int				f2inuse;
 	long long		last_meal_time;
 	int				meals_eaten;
 	t_aux			*aux;
@@ -49,6 +49,7 @@ typedef struct s_philosopher
 
 void    		think(t_philosopher *philo);
 int 			pickforks(t_philosopher *philo);
+void    		lock_2(pthread_mutex_t *fork, pthread_mutex_t *fork_state);
 void    		eat(t_philosopher *philo);
 int 			forksinuse(t_philosopher *philo);
 void    		put_down_fork(t_philosopher *philo);

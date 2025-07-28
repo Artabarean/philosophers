@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/24 14:16:53 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/28 14:28:58 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int check_death(t_philosopher *philo)
     pthread_mutex_lock(&philo->aux->deathofmutex);
     stop = philo->aux->stop;
     pthread_mutex_unlock(&philo->aux->deathofmutex);
-    return stop;
+    return (stop);
 }
 
 int check_deaths(t_philosopher *philos, int idx, int ttl)
