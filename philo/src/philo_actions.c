@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/07/28 15:37:48 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/29 14:38:35 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void    philo_sleeps(t_philosopher *philo)
 {
     long long   tm;
 
-    ft_usleep(200);
+    ft_usleep(100);
     tm = get_current_time() - philo->aux->start_time;
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (!philo->aux->stop)
