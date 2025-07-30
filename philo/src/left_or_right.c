@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_or_right.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/28 15:39:28 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/30 11:05:38 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void    wait(t_philosopher *philo, long long tm)
 {
     tm = get_current_time() - philo->aux->start_time;
-    printf("%lld %d is waiting\n", tm, philo->id);
+    printf("%lld %d is waiting⏳\n", tm, philo->id);
 }
 
 int	left_first(t_philosopher *philo, long long tm)
@@ -33,7 +33,7 @@ int	left_first(t_philosopher *philo, long long tm)
     pthread_mutex_lock(&philo->aux->printofmutex);
     tm = get_current_time() - philo->aux->start_time;
     if (!philo->aux->stop)
-        printf("%lld %d has taken a fork\n", tm, philo->id);
+        printf("%lld %d has taken a fork🍴\n", tm, philo->id);
     pthread_mutex_unlock(&philo->aux->printofmutex);
     return (0);
 }
@@ -56,7 +56,7 @@ int	right_first(t_philosopher *philo, long long tm)
     pthread_mutex_lock(&philo->aux->printofmutex);
     tm = get_current_time() - philo->aux->start_time;
     if (!philo->aux->stop)
-        printf("%lld %d has taken a fork\n", tm, philo->id);
+        printf("%lld %d has taken a fork🍴\n", tm, philo->id);
     pthread_mutex_unlock(&philo->aux->printofmutex);
     return (0);
 }

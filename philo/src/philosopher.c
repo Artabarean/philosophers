@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/28 14:56:41 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/30 10:44:29 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int argc, char *argv[])
 	if (aux == NULL)
 		return (printf("Error:\none of the numbers is too large\n"));
 	philos = philos_init(aux);
+	philos->meals_eaten = 0;
 	if (checkargv(aux) == 1)
 	{
 		printf("Arguments passed are invalid\n");
