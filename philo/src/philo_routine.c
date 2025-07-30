@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/30 11:06:35 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/30 11:56:51 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int check_death(t_philosopher *philo)
     return (stop);
 }
 
-int check_deaths(t_philosopher *philos, int idx, int ttl)
+int check_deaths(t_philosopher *philo, int idx, int ttl)
 {
     long long now;
     long long diff;
@@ -30,32 +30,43 @@ int check_deaths(t_philosopher *philos, int idx, int ttl)
     if (idx == ttl)
         return (0);
     now = get_current_time();
-    diff = now - philos[idx].last_meal_time;
-    pthread_mutex_lock(&philos[idx].aux->deathofmutex);
-    if (philos[idx].aux->stop == 0 && diff > philos[idx].aux->dietime)
+    diff = now - philo[idx].last_meal_time;
+    pthread_mutex_lock(&philo[idx].aux->deathofmutex);
+    if (philo[idx].aux->stop == 0 && diff > philo[idx].aux->dietime)
     {
-        philos[idx].aux->stop = 1;
-        pthread_mutex_unlock(&philos[idx].aux->deathofmutex);
-        pthread_mutex_lock(&philos[idx].aux->printofmutex);
-        printf("%lld %d died💀\n", now - philos[idx].aux->start_time, philos[idx].id);
-        pthread_mutex_unlock(&philos[idx].aux->printofmutex);
+        philo[idx].aux->stop = 1;
+        pthread_mutex_unlock(&philo[idx].aux->deathofmutex);
+        pthread_mutex_lock(&philo[idx].aux->printofmutex);
+        printf("%lld %d died💀\n", now - philo[idx].aux->start_time, philo[idx].id);
+        pthread_mutex_unlock(&philo[idx].aux->printofmutex);
         return (1);
     }
-    pthread_mutex_unlock(&philos[idx].aux->deathofmutex);
-    return (check_deaths(philos, idx + 1, ttl));
+    pthread_mutex_unlock(&philo[idx].aux->deathofmutex);
+    return (check_deaths(philo, idx + 1, ttl));
 }
 
 void *monitor(void *arg)
 {
-    t_philosopher *philos;
-    int total;
+    t_philosopher *philo;
+    int ttl;
     
-    philos = (t_philosopher *)arg;
-    total = philos[0].aux->philosnum;
+    philo = (t_philosopher *)arg;
+    ttl = philo[0].aux->philosnum;
     while (1)
     {
-        if (check_deaths(philos, 0, total))
+        if (check_deaths(philo, 0, ttl))
             break;
+        if (philo->aux->mealnum != -1)
+        {
+            if (all_philos_done(philo, ttl))
+            {
+                pthread_mutex_lock(&philo[0].aux->deathofmutex);
+                philo[0].aux->stop = 1;
+                pthread_mutex_unlock(&philo[0].aux->deathofmutex);
+                printf("simulation has ended 😁\n");
+                break;
+            }
+        }
         usleep(100);
     }
     return (NULL);
@@ -69,21 +80,21 @@ void	*philo_routine(void *arg)
 	philo->last_meal_time = philo->aux->start_time;    
     while (1)
     {
-        if (check_death(philo))
+        if (check_death(philo) != 0)
             break;
         if (pickforks(philo) == -1)
             break;
-        if (check_death(philo))
+        if (check_death(philo) != 0)
             break;
         eat(philo);
         philo->meals_eaten += 1;
-        if (check_death(philo))
+        if (check_death(philo) != 0)
             break;
         put_down_fork(philo);
-        if (philo->aux->mealnum && philo->meals_eaten == philo->aux->mealnum)
+        if (philo->aux->mealnum != -1 && philo->meals_eaten == philo->aux->mealnum)
             return (has_eaten(philo), NULL);
         philo_sleeps(philo);
-        if (check_death(philo))
+        if (check_death(philo) != 0)
             break;
         think(philo);
     }

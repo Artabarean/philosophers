@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/30 10:57:44 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/30 11:17:00 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ long 			ft_atol(char *arg);
 t_philosopher	*philos_init(t_aux *aux);
 int				philostart(t_aux *aux, t_philosopher *philos);
 int 			checkargv(t_aux *aux);
+int 			all_philos_done(t_philosopher *philos, int total);
 int 			zeros_in_int(char **a);
 int     		max_min_int(char **arg);
 int 			check_death(t_philosopher *philo);

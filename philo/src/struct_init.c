@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 12:11:12 by alex              #+#    #+#             */
-/*   Updated: 2025/07/28 14:59:47 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/30 12:07:15 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
+
+void    forkation(t_aux *aux)
+{
+    int i;
+
+    i = 0;
+    while (i < aux->philosnum)
+    {
+        aux->fork_use[i] = 0;
+        i++;
+    }
+}
 
 int zeros_in_int(char **a)
 {
@@ -61,10 +73,7 @@ int     max_min_int(char **arg)
 }
 
 t_aux *struct_init(t_aux *aux, char *argv[], int argc)
-{
-    int i;
-
-    i = 0;    
+{    
     aux = (t_aux *)malloc(sizeof(t_aux));
     aux->philosnum = ft_atol(argv[1]);
     aux->dietime = ft_atol(argv[2]);
@@ -73,16 +82,12 @@ t_aux *struct_init(t_aux *aux, char *argv[], int argc)
     aux->start_time = get_current_time();
     aux->forks = malloc(sizeof (pthread_mutex_t) * aux->philosnum);
     aux->fork_use = malloc(sizeof(int) * aux->philosnum);
-    while (i < aux->philosnum)
-    {
-        aux->fork_use[i] = 0;
-        i++;
-    }
+    forkation(aux);
     pthread_mutex_init(&aux->fork_state_mutex, NULL);
     if (argc == 6)
         aux->mealnum = ft_atol(argv[5]);
     else
-        aux->mealnum = 0;
+        aux->mealnum = -1;
     if (aux->philosnum == -1 || aux->eattime == -1 || aux->sleeptime == -1
         || aux->dietime == -1)
         return (aux = NULL);
