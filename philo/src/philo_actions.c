@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/07/30 11:49:39 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/31 09:56:38 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void think(t_philosopher *philo)
 {
     long long tm;
 
-    ft_usleep(100);
     tm = get_current_time() - philo->aux->start_time;
     pthread_mutex_lock(&philo->aux->printofmutex);
     if (philo->aux->stop == 0)
@@ -45,10 +44,10 @@ int pickforks(t_philosopher *philo)
 void    eat(t_philosopher *philo)
 {
     long long   tm;
-    
-    philo->last_meal_time = get_current_time();
+
     pthread_mutex_lock(&philo->aux->printofmutex);
     ft_usleep(philo->aux->eattime);
+    philo->last_meal_time = get_current_time();
     tm = philo->last_meal_time - philo->aux->start_time;
     if (philo->aux->stop == 0)
         printf("%lld %d is eating🍝\n", tm, philo->id);
