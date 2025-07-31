@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/07/31 09:56:38 by alex             ###   ########.fr       */
+/*   Updated: 2025/07/31 12:44:19 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ void think(t_philosopher *philo)
 {
     long long tm;
 
-    tm = get_current_time() - philo->aux->start_time;
+    
     pthread_mutex_lock(&philo->aux->printofmutex);
+    tm = get_current_time() - philo->aux->start_time;
+    if (isdead(philo->aux))
+        philo->aux->stop = 1;
     if (philo->aux->stop == 0)
         printf("%lld %d is thinking🤔\n", tm, philo->id);
     pthread_mutex_unlock(&philo->aux->printofmutex);
@@ -49,6 +52,8 @@ void    eat(t_philosopher *philo)
     ft_usleep(philo->aux->eattime);
     philo->last_meal_time = get_current_time();
     tm = philo->last_meal_time - philo->aux->start_time;
+    if (isdead(philo->aux))
+        philo->aux->stop = 1;
     if (philo->aux->stop == 0)
         printf("%lld %d is eating🍝\n", tm, philo->id);
     pthread_mutex_unlock(&philo->aux->printofmutex);
@@ -69,7 +74,10 @@ void    philo_sleeps(t_philosopher *philo)
     long long   tm;
 
     pthread_mutex_lock(&philo->aux->printofmutex);
-    ft_usleep(philo->aux->sleeptime);
+    if (isdead(philo->aux))
+        philo->aux->stop = 1;
+    if (!check_death(philo))
+        ft_usleep(philo->aux->sleeptime);
     tm = get_current_time() - philo->aux->start_time;
     if (philo->aux->stop == 0)
         printf("%lld %d sleeps💤\n", tm, philo->id);

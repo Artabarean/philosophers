@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_or_right.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/30 11:49:22 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:38:34 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	left_first(t_philosopher *philo, long long tm)
     pthread_mutex_lock(&philo->aux->fork_state_mutex);
     philo->aux->fork_use[philo->id - 1] = 1;
     pthread_mutex_unlock(&philo->aux->fork_state_mutex);
+    if (isdead(philo->aux))
+        philo->aux->stop = 1;
     if (philo->aux->stop != 0)
         return (pthread_mutex_unlock(philo->left_fork), 1);
     pthread_mutex_lock(&philo->aux->printofmutex);
@@ -51,6 +53,8 @@ int	right_first(t_philosopher *philo, long long tm)
     pthread_mutex_lock(&philo->aux->fork_state_mutex);
     philo->aux->fork_use[philo->id - 1] = 1;
     pthread_mutex_unlock(&philo->aux->fork_state_mutex);
+    if (isdead(philo->aux))
+        philo->aux->stop = 1;
     if (philo->aux->stop != 0)
         return (pthread_mutex_unlock(philo->right_fork), 1);
     pthread_mutex_lock(&philo->aux->printofmutex);

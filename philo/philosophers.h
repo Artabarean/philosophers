@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/30 11:17:00 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:41:01 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_aux
 	int				*fork_use;
 	int				stop;
 	long long		start_time;
+	pthread_mutex_t dead;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t fork_state_mutex;
 	pthread_mutex_t	printofmutex;
@@ -48,6 +49,8 @@ typedef struct s_philosopher
 }			t_philosopher;
 
 void    		think(t_philosopher *philo);
+int 			isdead(t_aux *aux);
+void    		set_death(t_aux *aux);
 int 			pickforks(t_philosopher *philo);
 void    		eat(t_philosopher *philo);
 void			has_eaten(t_philosopher *philo);
