@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/07/31 12:09:56 by alex             ###   ########.fr       */
+/*   Updated: 2025/08/01 12:27:09 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ int	philostart(t_aux *aux, t_philosopher *philos)
 	}
 	pthread_create(&monitor_thread, NULL, monitor, (void *)philos);
 	i = 0;
-    while (i < aux->philosnum)
-    {
-        pthread_join(thds[i], NULL);
-        i++;
-    }
+	while (i < aux->philosnum)
+	{
+		pthread_join(thds[i], NULL);
+		i++;
+	}
 	pthread_join(monitor_thread, NULL);
 	return (free(thds), 0);
 }
 
 int	main(int argc, char *argv[])
 {
-	t_aux 			*aux;
+	t_aux			*aux;
 	t_philosopher	*philos;
 
 	aux = NULL;
@@ -62,6 +62,6 @@ int	main(int argc, char *argv[])
 		return (free(philos), free(aux), 1);
 	}
 	if (philostart(aux, philos) == 1)
-		return(free(philos), free(aux), 1);
+		return (free(philos), free(aux), 1);
 	return (0);
 }
