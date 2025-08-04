@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/01 12:45:59 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/04 15:13:31 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	check_deaths(t_philosopher *philo, int idx, int ttl)
 		pthread_mutex_unlock(&philo[idx].aux->printofmutex);
 		return (1);
 	}
+	if (philo->aux->stop == 1)
+		return (pthread_mutex_unlock(&philo[idx].aux->deathofmutex), 1);
 	pthread_mutex_unlock(&philo[idx].aux->deathofmutex);
 	return (check_deaths(philo, idx + 1, ttl));
 }
@@ -56,7 +58,7 @@ void	*monitor(void *arg)
 	ttl = philo[0].aux->philosnum;
 	while (1)
 	{
-		if (check_deaths(philo, 0, ttl))
+		if (check_deaths(philo, 0, ttl) == 1)
 			break ;
 		if (philo->aux->mealnum != -1)
 		{
@@ -65,7 +67,7 @@ void	*monitor(void *arg)
 				pthread_mutex_lock(&philo[0].aux->deathofmutex);
 				philo[0].aux->stop = 1;
 				pthread_mutex_unlock(&philo[0].aux->deathofmutex);
-				usleep(100);
+				usleep(1000);
 				printf("simulation has ended 😁\n");
 				break ;
 			}

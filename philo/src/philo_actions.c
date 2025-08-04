@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/08/01 12:37:14 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:05:40 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	think(t_philosopher *philo)
 
 	pthread_mutex_lock(&philo->aux->printofmutex);
 	tm = get_current_time() - philo->aux->start_time;
-	if (isdead(philo->aux))
+	if (isdead(philo->aux) != 0)
 		philo->aux->stop = 1;
 	if (philo->aux->stop == 0)
 		printf("%lld %d is thinking🤔\n", tm, philo->id);
@@ -53,7 +53,7 @@ void	eat(t_philosopher *philo)
 	ft_usleep(philo->aux->eattime);
 	philo->last_meal_time = get_current_time();
 	tm = philo->last_meal_time - philo->aux->start_time;
-	if (isdead(philo->aux))
+	if (isdead(philo->aux) != 0)
 		philo->aux->stop = 1;
 	if (philo->aux->stop == 0)
 		printf("%lld %d is eating🍝\n", tm, philo->id);
@@ -76,7 +76,7 @@ void	philo_sleeps(t_philosopher *philo)
 	long long	tm;
 
 	pthread_mutex_lock(&philo->aux->printofmutex);
-	if (isdead(philo->aux))
+	if (isdead(philo->aux) != 0)
 		philo->aux->stop = 1;
 	if (!check_death(philo))
 		ft_usleep(philo->aux->sleeptime);

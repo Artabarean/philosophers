@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/01 12:29:17 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/04 14:50:53 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_aux
 	int				mealnum;
 	int				death;
 	int				*fork_use;
-	int				stop;
+	volatile int	stop;
 	long long		start_time;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	*forks;
