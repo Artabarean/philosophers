@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/08/05 11:43:45 by alex             ###   ########.fr       */
+/*   Updated: 2025/08/05 12:12:39 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	think(t_philosopher *philo)
 	if (philo->aux->stop == 0)
 		printf("%lld %d is thinking🤔\n", tm, philo->id);
 	pthread_mutex_unlock(&philo->aux->printofmutex);
+	usleep(100);
 }
 
 int	pickforks(t_philosopher *philo)
@@ -34,13 +35,11 @@ int	pickforks(t_philosopher *philo)
 	{
 		if (left_first(philo, tm) == 1 || right_first(philo, tm) == 1)
 			return (-1);
-		usleep(100);
 	}
 	else
 	{
 		if (right_first(philo, tm) == 1 || left_first(philo, tm) == 1)
 			return (-1);
-		usleep(100);
 	}
 	return (0);
 }
@@ -67,24 +66,25 @@ int	eat(t_philosopher *philo)
 void	put_down_fork(t_philosopher *philo)
 {
 	pthread_mutex_lock(&philo->aux->fork_state_mutex);
-	philo->aux->fork_use[philo->id - 1] = 0;
-	philo->aux->fork_use[(philo->id) % philo->aux->philosnum] = 0;
+	philo->aux->lfork_use[philo->id - 1] = 0;
+	philo->aux->rfork_use[(philo->id) % philo->aux->philosnum] = 0;
 	pthread_mutex_unlock(&philo->aux->fork_state_mutex);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
 
-void	philo_sleeps(t_philosopher *philo)
+int	philo_sleeps(t_philosopher *philo)
 {
 	long long	tm;
 
 	pthread_mutex_lock(&philo->aux->printofmutex);
 	if (isdead(philo->aux) != 0)
-		philo->aux->stop = 1;
+		return (philo->aux->stop = 1);
 	if (!check_death(philo))
 		ft_usleep(philo->aux->sleeptime);
 	tm = get_current_time() - philo->aux->start_time;
 	if (philo->aux->stop == 0)
 		printf("%lld %d sleeps💤\n", tm, philo->id);
 	pthread_mutex_unlock(&philo->aux->printofmutex);
+	return (0);
 }

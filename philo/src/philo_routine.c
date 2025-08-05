@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/05 11:47:26 by alex             ###   ########.fr       */
+/*   Updated: 2025/08/05 12:03:08 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	*philo_routine(void *arg)
 		if (check_death(philo) != 0)
 			return (NULL);
 		put_down_fork(philo);
-		philo_sleeps(philo);
+		if (philo_sleeps(philo) == 1)
+			return (NULL);
 		if (check_death(philo) != 0)
 			return (NULL);
 		think(philo);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 12:11:12 by alex              #+#    #+#             */
-/*   Updated: 2025/08/01 12:27:04 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/05 12:06:50 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	forkation(t_aux *aux)
 	i = 0;
 	while (i < aux->philosnum)
 	{
-		aux->fork_use[i] = 0;
+		aux->lfork_use[i] = 0;
+		aux->rfork_use[i] = 0;
 		i++;
 	}
 }
@@ -81,7 +82,8 @@ t_aux	*struct_init(t_aux *aux, char *argv[], int argc)
 	aux->sleeptime = ft_atol(argv[4]);
 	aux->start_time = get_current_time();
 	aux->forks = malloc(sizeof(pthread_mutex_t) * aux->philosnum);
-	aux->fork_use = malloc(sizeof(int) * aux->philosnum);
+	aux->lfork_use = malloc(sizeof(int) * aux->philosnum);
+	aux->rfork_use = malloc(sizeof(int) * aux->philosnum);
 	aux->death = 0;
 	forkation(aux);
 	pthread_mutex_init(&aux->fork_state_mutex, NULL);

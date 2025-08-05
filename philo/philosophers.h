@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/05 11:42:15 by alex             ###   ########.fr       */
+/*   Updated: 2025/08/05 12:05:44 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ typedef struct s_aux
 	int				eattime;
 	int				mealnum;
 	int				death;
-	int				*fork_use;
+	int				*lfork_use;
+	int				*rfork_use;
 	volatile int	stop;
 	long long		start_time;
 	pthread_mutex_t	dead;
@@ -55,7 +56,7 @@ int					pickforks(t_philosopher *philo);
 int					eat(t_philosopher *philo);
 void				has_eaten(t_philosopher *philo);
 void				put_down_fork(t_philosopher *philo);
-void				philo_sleeps(t_philosopher *philo);
+int					philo_sleeps(t_philosopher *philo);
 void				argnum_check(void);
 int					check_deaths(t_philosopher *philos, int index, int total);
 int					right_first(t_philosopher *philo, long long tm);
@@ -74,6 +75,5 @@ int					zeros_in_int(char **a);
 int					max_min_int(char **arg);
 int					check_death(t_philosopher *philo);
 void				put_down_fork(t_philosopher *philo);
-void				philo_sleeps(t_philosopher *philo);
 
 #endif
