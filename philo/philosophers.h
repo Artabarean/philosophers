@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/04 14:50:53 by alex             ###   ########.fr       */
+/*   Updated: 2025/08/05 11:42:15 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void				think(t_philosopher *philo);
 int					isdead(t_aux *aux);
 void				set_death(t_aux *aux);
 int					pickforks(t_philosopher *philo);
-void				eat(t_philosopher *philo);
+int					eat(t_philosopher *philo);
 void				has_eaten(t_philosopher *philo);
 void				put_down_fork(t_philosopher *philo);
 void				philo_sleeps(t_philosopher *philo);

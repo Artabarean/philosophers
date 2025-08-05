@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/04 15:13:31 by alex             ###   ########.fr       */
+/*   Updated: 2025/08/05 11:47:26 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	*monitor(void *arg)
 				pthread_mutex_lock(&philo[0].aux->deathofmutex);
 				philo[0].aux->stop = 1;
 				pthread_mutex_unlock(&philo[0].aux->deathofmutex);
-				usleep(1000);
+				ft_usleep(100);
 				printf("simulation has ended 😁\n");
 				break ;
 			}
@@ -84,23 +84,22 @@ void	*philo_routine(void *arg)
 	philo->last_meal_time = philo->aux->start_time;
 	while (1)
 	{
+		if (check_death(philo) != 0)
+			return (NULL);
 		if (pickforks(philo) == -1)
-			break ;
+			return (NULL);
 		if (check_death(philo) != 0)
-			break ;
-		eat(philo);
+			return (NULL);
+		if (eat(philo) == 1)
+			return (put_down_fork(philo), NULL);
 		if (check_death(philo) != 0)
-			break ;
+			return (NULL);
 		put_down_fork(philo);
-		if (philo->aux->mealnum != -1
-			&& philo->meals_eaten == philo->aux->mealnum)
-			return (has_eaten(philo), NULL);
 		philo_sleeps(philo);
 		if (check_death(philo) != 0)
-			break ;
+			return (NULL);
 		think(philo);
 		if (check_death(philo) != 0)
-			break ;
+			return (NULL);
 	}
-	return (NULL);
 }

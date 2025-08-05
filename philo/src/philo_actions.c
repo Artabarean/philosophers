@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/08/04 12:05:40 by alex             ###   ########.fr       */
+/*   Updated: 2025/08/05 11:43:45 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	pickforks(t_philosopher *philo)
 	return (0);
 }
 
-void	eat(t_philosopher *philo)
+int	eat(t_philosopher *philo)
 {
 	long long	tm;
 
@@ -59,6 +59,9 @@ void	eat(t_philosopher *philo)
 		printf("%lld %d is eating🍝\n", tm, philo->id);
 	pthread_mutex_unlock(&philo->aux->printofmutex);
 	philo->meals_eaten += 1;
+	if (philo->aux->mealnum != -1 && philo->meals_eaten == philo->aux->mealnum)
+		return (has_eaten(philo), 1);
+	return (0);
 }
 
 void	put_down_fork(t_philosopher *philo)
