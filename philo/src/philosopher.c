@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/06 11:02:49 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/06 12:38:04 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	philostart(t_aux *aux, t_philosopher *philos)
 		pthread_join(thds[i], NULL);
 		i++;
 	}
-	pthread_join(monitor_thread, NULL);
-	return (free(thds), 0);
+	freestuff(philos->aux);
+	return (pthread_join(monitor_thread, NULL), free(thds), 0);
 }
 
 int	main(int argc, char *argv[])

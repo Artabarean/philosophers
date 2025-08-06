@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/06 11:23:40 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/06 12:36:52 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void				think(t_philosopher *philo);
 int					isdead(t_aux *aux);
 void				set_death(t_aux *aux);
 int					pickforks(t_philosopher *philo);
-int					any_dead_philos(t_philosopher *philo);
 int					eat(t_philosopher *philo);
+void				freestuff(t_aux *aux);
 void				has_eaten(t_philosopher *philo);
 void				put_down_fork(t_philosopher *philo);
 int					philo_sleeps(t_philosopher *philo);

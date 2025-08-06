@@ -6,7 +6,7 @@
 #    By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 11:54:40 by atabarea          #+#    #+#              #
-#    Updated: 2025/08/06 11:23:57 by atabarea         ###   ########.fr        #
+#    Updated: 2025/08/06 12:36:33 by atabarea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC = src/philosopher.c src/argnum_check.c src/struct_init.c src/ft_atol.c\
 	src/checkargv.c src/philos_init.c src/philo_routine.c src/philo_actions.c\
-	src/get_current_time.c src/left_or_right.c src/has_eaten.c src/isdead.c
+	src/get_current_time.c src/left_or_right.c src/has_eaten.c src/isdead.c\
+	src/freestuff.c
 
 OBJ = $(SRC:.c=.o)
 

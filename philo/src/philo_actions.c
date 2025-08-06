@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/08/06 11:56:47 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/06 12:42:02 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	eat(t_philosopher *philo)
 
 	i = 0;
 	pthread_mutex_lock(&philo->aux->printofmutex);
-	philo->aux->stop = isdead(philo->aux);
 	while (i < philo->aux->eattime)
 	{
 		ft_usleep(1);
