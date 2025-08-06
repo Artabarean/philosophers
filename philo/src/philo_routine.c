@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/06 11:31:45 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/06 12:12:27 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	check_deaths(t_philosopher *philo, int idx, int ttl)
 	{
 		set_death(philo->aux);
 		philo[idx].aux->stop = 1;
+		now = get_current_time();
 		pthread_mutex_unlock(&philo[idx].aux->deathofmutex);
 		pthread_mutex_lock(&philo[idx].aux->printofmutex);
-		now = get_current_time();
 		printf("%lld %d died💀\n", now - philo[idx].aux->start_time,
 			philo[idx].id);
 		pthread_mutex_unlock(&philo[idx].aux->printofmutex);
