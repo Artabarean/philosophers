@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/08/06 11:01:03 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:50:39 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,24 @@ int	pickforks(t_philosopher *philo)
 int	eat(t_philosopher *philo)
 {
 	long long	tm;
+	int			i;
 
+	i = 0;
 	pthread_mutex_lock(&philo->aux->printofmutex);
-	ft_usleep(philo->aux->eattime);
-	philo->last_meal_time = get_current_time();
-	tm = philo->last_meal_time - philo->aux->start_time;
-	if (isdead(philo->aux) != 0)
-		philo->aux->stop = 1;
-	if (philo->aux->stop == 0)
-		printf("%lld %d is eating🍝\n", tm, philo->id);
+	philo->aux->stop = isdead(philo->aux);
+	while (i < philo->aux->eattime)
+	{
+		ft_usleep(1);
+		i++;
+		if (isdead(philo->aux) != 0)
+			return(pthread_mutex_unlock(&philo->aux->printofmutex), 1);
+		if (i == philo->aux->eattime)
+		{
+			philo->last_meal_time = get_current_time();
+			tm = philo->last_meal_time - philo->aux->start_time;
+			printf("%lld %d is eating🍝\n", tm, philo->id);
+		}
+	}
 	pthread_mutex_unlock(&philo->aux->printofmutex);
 	philo->meals_eaten += 1;
 	if (philo->aux->mealnum != -1 && philo->meals_eaten == philo->aux->mealnum)
