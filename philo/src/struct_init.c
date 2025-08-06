@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 12:11:12 by alex              #+#    #+#             */
-/*   Updated: 2025/08/05 12:06:50 by alex             ###   ########.fr       */
+/*   Updated: 2025/08/06 10:31:44 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_aux	*struct_init(t_aux *aux, char *argv[], int argc)
 	aux->lfork_use = malloc(sizeof(int) * aux->philosnum);
 	aux->rfork_use = malloc(sizeof(int) * aux->philosnum);
 	aux->death = 0;
+	aux->eated = 0;
 	forkation(aux);
 	pthread_mutex_init(&aux->fork_state_mutex, NULL);
 	if (argc == 6)

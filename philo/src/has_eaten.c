@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 10:54:49 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/01 12:32:35 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/06 10:31:19 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	has_eaten(t_philosopher *philo)
 {
 	long long	tm;
 
+	philo->aux->eated = 1;
 	tm = get_current_time() - philo->aux->start_time;
 	printf("%lld %d has eaten all their meals🍗\n", tm, philo->id);
 }
