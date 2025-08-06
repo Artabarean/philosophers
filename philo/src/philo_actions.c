@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/08/06 11:50:39 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:56:47 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	eat(t_philosopher *philo)
 		ft_usleep(1);
 		i++;
 		if (isdead(philo->aux) != 0)
-			return(pthread_mutex_unlock(&philo->aux->printofmutex), 1);
+			return (pthread_mutex_unlock(&philo->aux->printofmutex), 1);
 		if (i == philo->aux->eattime)
 		{
 			philo->last_meal_time = get_current_time();
