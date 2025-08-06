@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/05 12:00:10 by alex             ###   ########.fr       */
+/*   Updated: 2025/08/06 11:02:49 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	philostart(t_aux *aux, t_philosopher *philos)
 		philos[i].right_fork = &aux->forks[(i + 1) % aux->philosnum];
 		philos[i].aux = aux;
 		pthread_create(&thds[i], NULL, philo_routine, &philos[i]);
-		usleep(50);
+		usleep(503);
 		i++;
 	}
 	pthread_create(&monitor_thread, NULL, monitor, (void *)philos);

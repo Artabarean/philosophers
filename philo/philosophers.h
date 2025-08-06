@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/06 10:31:30 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:23:40 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_aux
 	int				death;
 	int				*lfork_use;
 	int				*rfork_use;
-	volatile int	stop;
 	long long		start_time;
+	int				stop;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	fork_state_mutex;
@@ -54,6 +54,7 @@ void				think(t_philosopher *philo);
 int					isdead(t_aux *aux);
 void				set_death(t_aux *aux);
 int					pickforks(t_philosopher *philo);
+int					any_dead_philos(t_philosopher *philo);
 int					eat(t_philosopher *philo);
 void				has_eaten(t_philosopher *philo);
 void				put_down_fork(t_philosopher *philo);
