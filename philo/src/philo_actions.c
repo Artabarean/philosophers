@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/08/06 12:42:02 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/06 12:53:14 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,15 @@ int	eat(t_philosopher *philo)
 
 	i = 0;
 	pthread_mutex_lock(&philo->aux->printofmutex);
+	if (isdead(philo->aux) != 0)
+			return (pthread_mutex_unlock(&philo->aux->printofmutex), 1);
+	tm = get_current_time() - philo->aux->start_time;
+	printf("%lld %d is eating🍝\n", tm, philo->id);
 	while (i < philo->aux->eattime)
 	{
-		ft_usleep(1);
-		i++;
 		if (isdead(philo->aux) != 0)
 			return (pthread_mutex_unlock(&philo->aux->printofmutex), 1);
-		if (i == philo->aux->eattime)
-		{
-			philo->last_meal_time = get_current_time();
-			tm = philo->last_meal_time - philo->aux->start_time;
-			printf("%lld %d is eating🍝\n", tm, philo->id);
-		}
+		ft_usleep(1);
 	}
 	pthread_mutex_unlock(&philo->aux->printofmutex);
 	philo->meals_eaten += 1;
@@ -84,15 +81,20 @@ void	put_down_fork(t_philosopher *philo)
 int	philo_sleeps(t_philosopher *philo)
 {
 	long long	tm;
-
+	int	i;
+	
+	i = 0;
 	pthread_mutex_lock(&philo->aux->printofmutex);
 	if (isdead(philo->aux) != 0)
 		return (philo->aux->stop = 1);
-	if (!check_death(philo))
-		ft_usleep(philo->aux->sleeptime);
 	tm = get_current_time() - philo->aux->start_time;
-	if (philo->aux->stop == 0)
-		printf("%lld %d sleeps💤\n", tm, philo->id);
+	printf("%lld %d sleeps💤\n", tm, philo->id);
+	while (i < philo->aux->sleeptime)
+	{
+		if (isdead(philo->aux) != 0)
+			return (pthread_mutex_unlock(&philo->aux->printofmutex), 1);
+		ft_usleep(1);
+	}
 	pthread_mutex_unlock(&philo->aux->printofmutex);
 	return (0);
 }
