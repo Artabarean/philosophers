@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/10/07 13:04:47 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/07 14:17:56 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	eat(t_philosopher *philo)
 	philo->last_meal_time = get_current_time();
 	tm = get_current_time() - philo->aux->start_time;
 	printf("%lld %d is eating🍝\n", tm, philo->id);
+	pthread_mutex_unlock(&philo->aux->printofmutex);
 	while (i < philo->aux->eattime)
 	{
 		if (isdead(philo->aux) != 0)
@@ -63,7 +64,6 @@ int	eat(t_philosopher *philo)
 		ft_usleep(1);
 		i++;
 	}
-	pthread_mutex_unlock(&philo->aux->printofmutex);
 	philo->meals_eaten += 1;
 	if (philo->aux->mealnum != -1 && philo->meals_eaten == philo->aux->mealnum)
 		return (has_eaten(philo), 1);
@@ -87,6 +87,7 @@ int	philo_sleeps(t_philosopher *philo)
 		return (philo->aux->stop = 1);
 	tm = get_current_time() - philo->aux->start_time;
 	printf("%lld %d sleeps💤\n", tm, philo->id);
+	pthread_mutex_unlock(&philo->aux->printofmutex);
 	while (i < philo->aux->sleeptime)
 	{
 		if (isdead(philo->aux) != 0)
@@ -94,6 +95,5 @@ int	philo_sleeps(t_philosopher *philo)
 		ft_usleep(1);
 		i++;
 	}
-	pthread_mutex_unlock(&philo->aux->printofmutex);
 	return (0);
 }
