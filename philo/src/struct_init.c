@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 12:11:12 by alex              #+#    #+#             */
-/*   Updated: 2025/08/06 11:29:56 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/07 12:14:38 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ t_aux	*struct_init(t_aux *aux, char *argv[], int argc)
 	aux->death = 0;
 	aux->eated = 0;
 	forkation(aux);
-	pthread_mutex_init(&aux->fork_state_mutex, NULL);
 	if (argc == 6)
 		aux->mealnum = ft_atol(argv[5]);
 	else

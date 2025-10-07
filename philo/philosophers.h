@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/08/06 12:36:52 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/07 12:35:43 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_aux
 	int				stop;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	fork_state_mutex;
 	pthread_mutex_t	printofmutex;
 	pthread_mutex_t	deathofmutex;
 }					t_aux;

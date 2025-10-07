@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/10/06 12:53:14 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/07 13:04:47 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	eat(t_philosopher *philo)
 	pthread_mutex_lock(&philo->aux->printofmutex);
 	if (isdead(philo->aux) != 0)
 			return (pthread_mutex_unlock(&philo->aux->printofmutex), 1);
+	philo->last_meal_time = get_current_time();
 	tm = get_current_time() - philo->aux->start_time;
 	printf("%lld %d is eating🍝\n", tm, philo->id);
 	while (i < philo->aux->eattime)
@@ -60,6 +61,7 @@ int	eat(t_philosopher *philo)
 		if (isdead(philo->aux) != 0)
 			return (pthread_mutex_unlock(&philo->aux->printofmutex), 1);
 		ft_usleep(1);
+		i++;
 	}
 	pthread_mutex_unlock(&philo->aux->printofmutex);
 	philo->meals_eaten += 1;
@@ -70,12 +72,8 @@ int	eat(t_philosopher *philo)
 
 void	put_down_fork(t_philosopher *philo)
 {
-	pthread_mutex_lock(&philo->aux->fork_state_mutex);
 	philo->aux->lfork_use[philo->id - 1] = 0;
 	philo->aux->rfork_use[(philo->id) % philo->aux->philosnum] = 0;
-	pthread_mutex_unlock(&philo->aux->fork_state_mutex);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
 }
 
 int	philo_sleeps(t_philosopher *philo)
@@ -94,6 +92,7 @@ int	philo_sleeps(t_philosopher *philo)
 		if (isdead(philo->aux) != 0)
 			return (pthread_mutex_unlock(&philo->aux->printofmutex), 1);
 		ft_usleep(1);
+		i++;
 	}
 	pthread_mutex_unlock(&philo->aux->printofmutex);
 	return (0);
