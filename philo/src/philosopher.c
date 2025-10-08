@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/08 10:49:10 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/08 11:32:40 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	philostart(t_aux *aux, t_philosopher *philos)
 	{
 		philos[i].id = i + 1;
 		philos[i].left_fork = &aux->forks[i];
-		if ((i + 1) == aux->philosnum)
+		if ((i + 1) >= aux->philosnum)
 			philos[i].right_fork = &aux->forks[0];
 		else
-			philos[i].right_fork = &aux->forks[i + 1];
+			philos[i].right_fork = &aux->forks[(i + 1)];
 		philos[i].aux = aux;
 		pthread_create(&thds[i], NULL, philo_routine, &philos[i]);
 		i++;
