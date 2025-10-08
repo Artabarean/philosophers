@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/10/08 11:35:41 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/08 12:03:17 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,12 @@ int	eat(t_philosopher *philo)
 
 void	put_down_fork(t_philosopher *philo)
 {
+	if (philo->aux->philosnum == 1)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		philo->aux->lfork_use[philo->id - 1] = 0;
+		return ;
+	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 	philo->aux->lfork_use[philo->id - 1] = 0;
