@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/07 14:25:27 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/08 10:55:23 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,21 @@ int	left_first(t_philosopher *philo, long long tm)
 {
 	if (check_death(philo) != 0)
 		return (1);
-	if (philo->aux->lfork_use[philo->id - 1] == 1 ||
-		philo->aux->rfork_use[philo->id % philo->aux->philosnum] == 1)
+	if (philo->id + 1 != philo->aux->philosnum)
 	{
-		wait(philo, tm);
+		if (philo->aux->lfork_use[philo->id - 1] == 1 ||
+		philo->aux->rfork_use[philo->id] == 1)
+		{
+			wait(philo, tm);
+		}
+	}
+	else
+	{
+		if (philo->aux->lfork_use[philo->id - 1] == 1 ||
+		philo->aux->rfork_use[0] == 1)
+		{
+			wait(philo, tm);
+		}
 	}
 	pthread_mutex_lock(philo->left_fork);
 	philo->aux->lfork_use[philo->id - 1] = 1;
@@ -52,10 +63,21 @@ int	right_first(t_philosopher *philo, long long tm)
 	
 	if (check_death(philo) != 0)
 		return (1);
-	if (philo->aux->rfork_use[(philo->id + 1) % philo->aux->philosnum] == 1 ||
-		philo->aux->lfork_use[philo->id] == 1)
+	if (philo->id + 1 != philo->aux->philosnum)
 	{
-		wait(philo, tm);
+		if (philo->aux->lfork_use[philo->id - 1] == 1 ||
+		philo->aux->rfork_use[philo->id] == 1)
+		{
+			wait(philo, tm);
+		}
+	}
+	else
+	{
+		if (philo->aux->lfork_use[philo->id - 1] == 1 ||
+		philo->aux->rfork_use[0] == 1)
+		{
+			wait(philo, tm);
+		}
 	}
 	pthread_mutex_lock(philo->right_fork);
 	philo->aux->rfork_use[(philo->id + 1) % philo->aux->philosnum] = 1;
