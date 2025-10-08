@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/08 11:38:33 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/08 11:49:17 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	left_first(t_philosopher *philo, long long tm)
 		return (1);
 	if (philo->id < philo->aux->philosnum)
 	{
-		if (philo->aux->lfork_use[philo->id - 1] == 1 ||
+		if (philo->aux->lfork_use[philo->id - 1] == 1 &&
 		philo->aux->rfork_use[philo->id] == 1)
 		{
 			wait(philo, tm);
@@ -48,7 +48,7 @@ int	left_first(t_philosopher *philo, long long tm)
 	}
 	else
 	{
-		if (philo->aux->lfork_use[philo->id - 1] == 1 ||
+		if (philo->aux->lfork_use[philo->id - 1] == 1 &&
 		philo->aux->rfork_use[0] == 1)
 		{
 			wait(philo, tm);
@@ -75,7 +75,7 @@ int	right_first(t_philosopher *philo, long long tm)
 		return (1);
 	if (philo->id< philo->aux->philosnum)
 	{
-		if (philo->aux->lfork_use[philo->id - 1] == 1 ||
+		if (philo->aux->lfork_use[philo->id - 1] == 1 &&
 		philo->aux->rfork_use[philo->id] == 1)
 		{
 			wait(philo, tm);
@@ -83,7 +83,7 @@ int	right_first(t_philosopher *philo, long long tm)
 	}
 	else
 	{
-		if (philo->aux->lfork_use[philo->id + 1] == 1 ||
+		if (philo->aux->lfork_use[philo->id + 1] == 1 &&
 		philo->aux->rfork_use[0] == 1)
 		{
 			wait(philo, tm);
