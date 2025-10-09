@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_or_right.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/08 11:53:06 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/09 09:38:15 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	wait(t_philosopher *philo, long long tm)
 	tm = get_current_time() - philo->aux->start_time;
 	printf("%lld %d is waiting⏳\n", tm, philo->id);
 	if (philo->id < philo->aux->philosnum)
-	{	
+	{
+		if (check_death(philo) != 0)
+			return ;
 		while (philo->aux->lfork_use[philo->id - 1] == 1 &&
 			philo->aux->rfork_use[philo->id] == 1)
 		{
@@ -25,7 +27,9 @@ void	wait(t_philosopher *philo, long long tm)
 		}
 	}
 	else
-	{	
+	{
+		if (check_death(philo) != 0)
+			return ;
 		while (philo->aux->lfork_use[philo->id - 1] == 1 &&
 			philo->aux->rfork_use[0] == 1)
 		{
@@ -56,9 +60,7 @@ int	left_first(t_philosopher *philo, long long tm)
 	}
 	pthread_mutex_lock(philo->left_fork);
 	philo->aux->lfork_use[philo->id - 1] = 1;
-	if (isdead(philo->aux))
-		philo->aux->stop = 1;
-	if (philo->aux->stop != 0)
+	if (check_death(philo) != 0)
 		return (pthread_mutex_unlock(philo->left_fork), 1);
 	pthread_mutex_lock(&philo->aux->printofmutex);
 	tm = get_current_time() - philo->aux->start_time;
@@ -91,9 +93,7 @@ int	right_first(t_philosopher *philo, long long tm)
 	}
 	pthread_mutex_lock(philo->right_fork);
 	philo->aux->rfork_use[philo->id] = 1;
-	if (isdead(philo->aux))
-		philo->aux->stop = 1;
-	if (philo->aux->stop != 0)
+	if (check_death(philo) != 0)
 		return (pthread_mutex_unlock(philo->right_fork), 1);
 	pthread_mutex_lock(&philo->aux->printofmutex);
 	tm = get_current_time() - philo->aux->start_time;

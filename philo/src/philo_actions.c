@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/10/08 12:03:17 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/09 09:43:01 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,16 @@ int	pickforks(t_philosopher *philo)
 	long long	tm;
 
 	tm = get_current_time() - philo->aux->start_time;
-	if (philo->id % 2 == 0)
+	if (philo->aux->philosnum == 1)
+	{
+			return (-1);
+	}
+	else if (philo->id % 2 == 0)
 	{
 		if (left_first(philo, tm) == 1 || right_first(philo, tm) == 1)
 			return (-1);
 	}
-	else
+	else if (philo->id % 2 != 0)
 	{
 		if (right_first(philo, tm) == 1 || left_first(philo, tm) == 1)
 			return (-1);
@@ -60,7 +64,7 @@ int	eat(t_philosopher *philo)
 	while (i < philo->aux->eattime)
 	{
 		if (isdead(philo->aux) != 0)
-			return (pthread_mutex_unlock(&philo->aux->printofmutex), 1);
+			return (1);
 		ft_usleep(1);
 		i++;
 	}
