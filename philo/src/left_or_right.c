@@ -6,16 +6,18 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/09 09:38:15 by alex             ###   ########.fr       */
+/*   Updated: 2025/10/09 09:50:28 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void	wait(t_philosopher *philo, long long tm)
+void	wait(t_philosopher *philo)
 {
-	tm = get_current_time() - philo->aux->start_time;
-	printf("%lld %d is waiting⏳\n", tm, philo->id);
+	// long long tm;
+
+	// tm = get_current_time() - philo->aux->start_time;
+	// printf("%lld %d is waiting⏳\n", tm, philo->id);
 	if (philo->id < philo->aux->philosnum)
 	{
 		if (check_death(philo) != 0)
@@ -47,7 +49,7 @@ int	left_first(t_philosopher *philo, long long tm)
 		if (philo->aux->lfork_use[philo->id - 1] == 1 &&
 		philo->aux->rfork_use[philo->id] == 1)
 		{
-			wait(philo, tm);
+			wait(philo);
 		}
 	}
 	else
@@ -55,7 +57,7 @@ int	left_first(t_philosopher *philo, long long tm)
 		if (philo->aux->lfork_use[philo->id - 1] == 1 &&
 		philo->aux->rfork_use[0] == 1)
 		{
-			wait(philo, tm);
+			wait(philo);
 		}
 	}
 	pthread_mutex_lock(philo->left_fork);
@@ -75,12 +77,12 @@ int	right_first(t_philosopher *philo, long long tm)
 	
 	if (check_death(philo) != 0)
 		return (1);
-	if (philo->id< philo->aux->philosnum)
+	if (philo->id < philo->aux->philosnum)
 	{
 		if (philo->aux->lfork_use[philo->id - 1] == 1 &&
 		philo->aux->rfork_use[philo->id] == 1)
 		{
-			wait(philo, tm);
+			wait(philo);
 		}
 	}
 	else
@@ -88,7 +90,7 @@ int	right_first(t_philosopher *philo, long long tm)
 		if (philo->aux->lfork_use[philo->id + 1] == 1 &&
 		philo->aux->rfork_use[0] == 1)
 		{
-			wait(philo, tm);
+			wait(philo);
 		}
 	}
 	pthread_mutex_lock(philo->right_fork);
