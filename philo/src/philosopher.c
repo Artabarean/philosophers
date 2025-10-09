@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/08 11:32:40 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/09 10:27:37 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
+
+void	jointhreads(t_aux *aux, pthread_t *thds)
+{
+	int	i;
+
+	i = 0;
+	while (i < aux->philosnum)
+	{
+		pthread_join(thds[i], NULL);
+		i++;
+	}
+}
 
 int	philostart(t_aux *aux, t_philosopher *philos)
 {
@@ -33,12 +45,7 @@ int	philostart(t_aux *aux, t_philosopher *philos)
 		i++;
 	}
 	pthread_create(&monitor_thread, NULL, monitor, (void *)philos);
-	i = 0;
-	while (i < aux->philosnum)
-	{
-		pthread_join(thds[i], NULL);
-		i++;
-	}
+	jointhreads(aux, thds);
 	freestuff(philos->aux);
 	return (pthread_join(monitor_thread, NULL), free(thds), 0);
 }
