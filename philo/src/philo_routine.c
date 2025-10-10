@@ -6,11 +6,23 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/10 12:21:16 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:44:07 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
+
+long long	diffcalc(t_philosopher *philo, int idx)
+{
+	long long	now;
+	long long	diff;
+
+	pthread_mutex_lock(&philo->aux->mealtimeprot);
+	now = get_current_time();
+	diff = now - philo[idx].last_meal_time;
+	pthread_mutex_unlock(&philo->aux->mealtimeprot);
+	return (diff);
+}
 
 int	check_deaths(t_philosopher *philo, int idx,int ttl)
 {
@@ -20,8 +32,7 @@ int	check_deaths(t_philosopher *philo, int idx,int ttl)
 	if (idx == ttl)
 		return (0);
 	pthread_mutex_lock(&philo[idx].aux->deathofmutex);
-	now = get_current_time();
-	diff = now - philo[idx].last_meal_time;
+	diff = diffcalc(philo, idx);
 	if (philo[idx].aux->stop == 0 && diff > philo[idx].aux->dietime
 		&& philo[idx].aux->eated == 0)
 	{
@@ -74,7 +85,9 @@ void	*philo_routine(void *arg)
 	t_philosopher	*philo;
 
 	philo = (t_philosopher *)arg;
+	pthread_mutex_lock(&philo->aux->mealtimeprot);
 	philo->last_meal_time = philo->aux->start_time;
+	pthread_mutex_unlock(&philo->aux->mealtimeprot);
 	while (1)
 	{
 		if (isdead(philo->aux) != 0)

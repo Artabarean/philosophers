@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/10 12:20:56 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/10 13:02:55 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	wait(t_philosopher *philo)
 
 int	left_first(t_philosopher *philo, long long tm)
 {
-	if (isdead(philo->aux) != 0)
-		return (1);
 	if (philo->id < philo->aux->philosnum)
 	{
 		if (philo->aux->lfork_use[philo->id - 1] == 1 &&
@@ -54,6 +52,11 @@ int	left_first(t_philosopher *philo, long long tm)
 	}
 	pthread_mutex_lock(philo->left_fork);
 	philo->aux->lfork_use[philo->id - 1] = 1;
+	pthread_mutex_lock(philo->right_fork);
+	if (philo->aux->rfork_use[philo->id] == 1)
+	philo->aux->lfork_use[philo->id - 1] = 0;
+	//to be done digger
+	pthread_mutex_unlock(&philo->aux->printofmutex);
 	if (isdead(philo->aux) != 0)
 		return (pthread_mutex_unlock(philo->left_fork), 1);
 	pthread_mutex_lock(&philo->aux->printofmutex);
@@ -65,7 +68,6 @@ int	left_first(t_philosopher *philo, long long tm)
 
 int	right_first(t_philosopher *philo, long long tm)
 {
-	
 	if (isdead(philo->aux) != 0)
 		return (1);
 	if (philo->id < philo->aux->philosnum)
