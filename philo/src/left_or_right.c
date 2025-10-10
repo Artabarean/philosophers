@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/10 14:12:39 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:22:17 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	waitleft(t_philosopher *philo)
 			return ;
 		while (philo->aux->rfork_use[philo->id] == 1 ||
 				philo->aux->lfork_use[philo->id - 1] == 1)
-			usleep(100);
+			usleep(50);
 	}
 	else
 	{
@@ -28,7 +28,7 @@ void	waitleft(t_philosopher *philo)
 			return ;
 		while (philo->aux->rfork_use[0] == 1 ||
 				philo->aux->lfork_use[philo->id - 1] == 1)
-			usleep(100);
+			usleep(50);
 	}
 }
 
