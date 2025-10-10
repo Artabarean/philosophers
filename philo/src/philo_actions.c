@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/10/09 09:43:01 by alex             ###   ########.fr       */
+/*   Updated: 2025/10/10 11:49:04 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	pickforks(t_philosopher *philo)
 	tm = get_current_time() - philo->aux->start_time;
 	if (philo->aux->philosnum == 1)
 	{
-			return (-1);
+		return (-1);
 	}
 	else if (philo->id % 2 == 0)
 	{
@@ -68,20 +68,16 @@ int	eat(t_philosopher *philo)
 		ft_usleep(1);
 		i++;
 	}
+	pthread_mutex_lock(&philo->aux->mealprt);
 	philo->meals_eaten += 1;
 	if (philo->aux->mealnum != -1 && philo->meals_eaten == philo->aux->mealnum)
-		return (has_eaten(philo), 1);
+		return (pthread_mutex_unlock(&philo->aux->mealprt) ,has_eaten(philo), 1);
+	pthread_mutex_unlock(&philo->aux->mealprt);
 	return (0);
 }
 
 void	put_down_fork(t_philosopher *philo)
 {
-	if (philo->aux->philosnum == 1)
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		philo->aux->lfork_use[philo->id - 1] = 0;
-		return ;
-	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 	philo->aux->lfork_use[philo->id - 1] = 0;
@@ -103,7 +99,7 @@ int	philo_sleeps(t_philosopher *philo)
 	while (i < philo->aux->sleeptime)
 	{
 		if (isdead(philo->aux) != 0)
-			return (pthread_mutex_unlock(&philo->aux->printofmutex), 1);
+			return (1);
 		ft_usleep(1);
 		i++;
 	}

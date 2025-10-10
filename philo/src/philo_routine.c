@@ -6,23 +6,13 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/07 13:02:47 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:21:16 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-int	check_death(t_philosopher *philo)
-{
-	int	stop;
-
-	pthread_mutex_lock(&philo->aux->deathofmutex);
-	stop = philo->aux->stop;
-	pthread_mutex_unlock(&philo->aux->deathofmutex);
-	return (stop);
-}
-
-int	check_deaths(t_philosopher *philo, int idx, int ttl)
+int	check_deaths(t_philosopher *philo, int idx,int ttl)
 {
 	long long	now;
 	long long	diff;
@@ -45,9 +35,9 @@ int	check_deaths(t_philosopher *philo, int idx, int ttl)
 		pthread_mutex_unlock(&philo[idx].aux->printofmutex);
 		return (1);
 	}
-	if (philo->aux->stop == 1)
-		return (pthread_mutex_unlock(&philo[idx].aux->deathofmutex), 1);
 	pthread_mutex_unlock(&philo[idx].aux->deathofmutex);
+	if (philo[idx].aux->stop == 1)
+		return (1);
 	return (check_deaths(philo, idx + 1, ttl));
 }
 
@@ -62,10 +52,11 @@ void	*monitor(void *arg)
 	{
 		if (check_deaths(philo, 0, ttl) == 1)
 			break ;
+		pthread_mutex_lock(&philo->aux->mealprt);
 		if (philo->aux->mealnum != -1)
-		{
 			if (all_philos_done(philo, ttl))
 			{
+				pthread_mutex_unlock(&philo->aux->mealprt);
 				pthread_mutex_lock(&philo[0].aux->deathofmutex);
 				philo[0].aux->stop = 1;
 				pthread_mutex_unlock(&philo[0].aux->deathofmutex);
@@ -73,7 +64,7 @@ void	*monitor(void *arg)
 				printf("simulation has ended 😁\n");
 				break ;
 			}
-		}
+		pthread_mutex_unlock(&philo->aux->mealprt);
 	}
 	return (NULL);
 }
@@ -86,23 +77,23 @@ void	*philo_routine(void *arg)
 	philo->last_meal_time = philo->aux->start_time;
 	while (1)
 	{
-		if (check_death(philo) != 0)
+		if (isdead(philo->aux) != 0)
 			return (NULL);
 		if (pickforks(philo) == -1)
-			return (put_down_fork(philo), NULL);
-		if (check_death(philo) != 0)
+			return(NULL);
+		if (isdead(philo->aux) != 0)
 			return (put_down_fork(philo), NULL);
 		if (eat(philo) == 1)
 			return (put_down_fork(philo), NULL);
-		if (check_death(philo) != 0)
+		if (isdead(philo->aux) != 0)
 			return (put_down_fork(philo), NULL);
 		put_down_fork(philo);
 		if (philo_sleeps(philo) == 1)
 			return (NULL);
-		if (check_death(philo) != 0)
+		if (isdead(philo->aux) != 0)
 			return (NULL);
 		think(philo);
-		if (check_death(philo) != 0)
+		if (isdead(philo->aux) != 0)
 			return (NULL);
 	}
 }

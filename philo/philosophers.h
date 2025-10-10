@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/07 12:35:43 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:21:29 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_aux
 	int				*rfork_use;
 	long long		start_time;
 	int				stop;
+	pthread_mutex_t mealprt;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	printofmutex;
@@ -74,7 +75,6 @@ int					checkargv(t_aux *aux);
 int					all_philos_done(t_philosopher *philos, int total);
 int					zeros_in_int(char **a);
 int					max_min_int(char **arg);
-int					check_death(t_philosopher *philo);
 void				put_down_fork(t_philosopher *philo);
 
 #endif
