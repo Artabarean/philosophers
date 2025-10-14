@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/10 12:29:47 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:20:29 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_aux
 	long long		start_time;
 	int				stop;
 	pthread_mutex_t mealprt;
+	pthread_mutex_t eaten;
 	pthread_mutex_t mealtimeprot;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	*forks;

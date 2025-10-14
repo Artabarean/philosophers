@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/14 13:05:11 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:25:16 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	*monitor(void *arg)
 				pthread_mutex_lock(&philo[0].aux->deathofmutex);
 				philo[0].aux->stop = 1;
 				pthread_mutex_unlock(&philo[0].aux->deathofmutex);
-				ft_usleep(50);
-				printf("simulation has ended 😁\n");
 				break ;
 			}
 		pthread_mutex_unlock(&philo->aux->mealprt);
