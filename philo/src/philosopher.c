@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/10 14:22:42 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/14 12:35:18 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	philostart(t_aux *aux, t_philosopher *philos)
 		philos[i].aux = aux;
 		pthread_create(&thds[i], NULL, philo_routine, &philos[i]);
 		i++;
-		usleep(50);
+		usleep(10);
 	}
 	pthread_create(&monitor_thread, NULL, monitor, (void *)philos);
 	jointhreads(aux, thds);
@@ -63,6 +63,8 @@ int	main(int argc, char *argv[])
 	aux = struct_init(aux, argv, argc);
 	if (aux == NULL)
 		return (printf("Error:\none of the numbers is too large\n"));
+	if (argc > 5 && aux->mealnum <= 0)
+		return (printf("Erro:\nPhilosophers can't eat 0 times\n"));
 	philos = philos_init(aux);
 	philos->meals_eaten = 0;
 	aux->stop = 0;

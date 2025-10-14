@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/10 12:44:07 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:05:11 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	check_deaths(t_philosopher *philo, int idx,int ttl)
 	{
 		set_death(philo->aux);
 		philo[idx].aux->stop = 1;
-		now = get_current_time();
 		pthread_mutex_unlock(&philo[idx].aux->deathofmutex);
 		pthread_mutex_lock(&philo[idx].aux->printofmutex);
+		now = get_current_time();
 		printf("%lld %d died💀\n", now - philo[idx].aux->start_time,
 			philo[idx].id);
 		pthread_mutex_unlock(&philo[idx].aux->printofmutex);
@@ -97,8 +97,6 @@ void	*philo_routine(void *arg)
 		if (isdead(philo->aux) != 0)
 			return (put_down_fork(philo), NULL);
 		if (eat(philo) == 1)
-			return (put_down_fork(philo), NULL);
-		if (isdead(philo->aux) != 0)
 			return (put_down_fork(philo), NULL);
 		put_down_fork(philo);
 		if (philo_sleeps(philo) == 1)
