@@ -6,11 +6,29 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 12:11:12 by alex              #+#    #+#             */
-/*   Updated: 2025/10/10 11:26:46 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:46:08 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
+
+void	init_mutex(t_aux *aux)
+{
+	int	i;
+
+	i = 0;
+	while (i < aux->philosnum)
+	{
+		pthread_mutex_init(&aux->forks[i], NULL);
+		i++;
+	}
+	pthread_mutex_init(&aux->mealprt, NULL);
+	pthread_mutex_init(&aux->eaten, NULL);
+	pthread_mutex_init(&aux->mealtimeprot, NULL);
+	pthread_mutex_init(&aux->dead, NULL);
+	pthread_mutex_init(&aux->printofmutex, NULL);
+	pthread_mutex_init(&aux->deathofmutex, NULL);
+}
 
 void	forkation(t_aux *aux)
 {
@@ -82,6 +100,7 @@ t_aux	*struct_init(t_aux *aux, char *argv[], int argc)
 	aux->sleeptime = ft_atol(argv[4]);
 	aux->start_time = get_current_time();
 	aux->forks = malloc(sizeof(pthread_mutex_t) * aux->philosnum);
+	init_mutex(aux);
 	aux->lfork_use = malloc(sizeof(int) * aux->philosnum);
 	aux->rfork_use = malloc(sizeof(int) * aux->philosnum);
 	aux->death = 0;

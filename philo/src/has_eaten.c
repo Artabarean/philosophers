@@ -6,13 +6,13 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 10:54:49 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/14 14:20:58 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:41:44 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void	has_eaten(t_philosopher *philo)
+void	eaten(t_philosopher *philo)
 {
 	long long	tm;
 

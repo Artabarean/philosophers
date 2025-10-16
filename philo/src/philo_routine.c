@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 10:20:08 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/14 14:25:16 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:45:01 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ long long	diffcalc(t_philosopher *philo, int idx)
 	return (diff);
 }
 
-int	check_deaths(t_philosopher *philo, int idx,int ttl)
+int	check_deaths(t_philosopher *philo, int idx, int ttl)
 {
 	long long	now;
 	long long	diff;
@@ -65,6 +65,7 @@ void	*monitor(void *arg)
 			break ;
 		pthread_mutex_lock(&philo->aux->mealprt);
 		if (philo->aux->mealnum != -1)
+		{
 			if (all_philos_done(philo, ttl))
 			{
 				pthread_mutex_unlock(&philo->aux->mealprt);
@@ -73,6 +74,7 @@ void	*monitor(void *arg)
 				pthread_mutex_unlock(&philo[0].aux->deathofmutex);
 				break ;
 			}
+		}
 		pthread_mutex_unlock(&philo->aux->mealprt);
 	}
 	return (NULL);
@@ -84,6 +86,7 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philosopher *)arg;
 	pthread_mutex_lock(&philo->aux->mealtimeprot);
+	philo->meals_eaten = 0;
 	philo->last_meal_time = philo->aux->start_time;
 	pthread_mutex_unlock(&philo->aux->mealtimeprot);
 	while (1)
@@ -91,9 +94,7 @@ void	*philo_routine(void *arg)
 		if (isdead(philo->aux) != 0)
 			return (NULL);
 		if (pickforks(philo) == -1)
-			return(NULL);
-		if (isdead(philo->aux) != 0)
-			return (put_down_fork(philo), NULL);
+			return (NULL);
 		if (eat(philo) == 1)
 			return (put_down_fork(philo), NULL);
 		put_down_fork(philo);

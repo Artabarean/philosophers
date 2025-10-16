@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/14 14:25:52 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:45:42 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ int	main(int argc, char *argv[])
 	philos = NULL;
 	if (argc < 5 || argc > 6)
 		return (argnum_check(), 1);
+	if (checkargv(argv) == 1)
+	{
+		printf("Arguments passed are invalid\n");
+		return (1);
+	}
 	aux = struct_init(aux, argv, argc);
 	if (aux == NULL)
 		return (printf("Error:\none of the numbers is too large\n"));
@@ -70,11 +75,6 @@ int	main(int argc, char *argv[])
 	philos = philos_init(aux);
 	philos->meals_eaten = 0;
 	aux->stop = 0;
-	if (checkargv(aux) == 1)
-	{
-		printf("Arguments passed are invalid\n");
-		return (free(philos), free(aux), 1);
-	}
 	philostart(aux, philos);
 	free(philos);
 	free(aux);

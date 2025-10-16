@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/14 14:20:29 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:41:33 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ typedef struct s_aux
 	int				*rfork_use;
 	long long		start_time;
 	int				stop;
-	pthread_mutex_t mealprt;
-	pthread_mutex_t eaten;
-	pthread_mutex_t mealtimeprot;
+	pthread_mutex_t	mealprt;
+	pthread_mutex_t	eaten;
+	pthread_mutex_t	mealtimeprot;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	printofmutex;
@@ -58,7 +58,7 @@ void				set_death(t_aux *aux);
 int					pickforks(t_philosopher *philo);
 int					eat(t_philosopher *philo);
 void				freestuff(t_aux *aux);
-void				has_eaten(t_philosopher *philo);
+void				eaten(t_philosopher *philo);
 void				put_down_fork(t_philosopher *philo);
 int					philo_sleeps(t_philosopher *philo);
 void				argnum_check(void);
@@ -73,7 +73,7 @@ t_aux				*struct_init(t_aux *aux, char *argv[], int argc);
 long				ft_atol(char *arg);
 t_philosopher		*philos_init(t_aux *aux);
 int					philostart(t_aux *aux, t_philosopher *philos);
-int					checkargv(t_aux *aux);
+int					checkargv(char *argv[]);
 int					all_philos_done(t_philosopher *philos, int total);
 int					zeros_in_int(char **a);
 int					max_min_int(char **arg);
