@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/16 11:45:42 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/17 10:49:14 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ int	main(int argc, char *argv[])
 		return (argnum_check(), 1);
 	if (checkargv(argv) == 1)
 	{
-		printf("Arguments passed are invalid\n");
+		printf("Error:\nArguments passed are invalid\n");
 		return (1);
 	}
+	if (argc > 5 && ft_atol(argv[5]) <= 0)
+		return (printf("Error:\nPhilosophers can't eat 0 or less times\n"), 1);
 	aux = struct_init(aux, argv, argc);
 	if (aux == NULL)
-		return (printf("Error:\none of the numbers is too large\n"));
-	if (argc > 5 && aux->mealnum <= 0)
-		return (printf("Erro:\nPhilosophers can't eat 0 times\n"));
+		return (printf("Error:\nOne of the numbers is too large\n"), 1);
 	philos = philos_init(aux);
 	philos->meals_eaten = 0;
 	aux->stop = 0;
