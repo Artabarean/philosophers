@@ -6,11 +6,22 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:29:09 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/14 12:14:12 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/17 14:29:07 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
+
+int	left_start(t_philosopher *philo, long long tm)
+{
+	if (left_first(philo, tm) == 1)
+		return (1);
+	if (isdead(philo->aux) != 0)
+		return (pthread_mutex_unlock(philo->left_fork), 1);
+	if (right_first(philo, tm) == 1)
+		return (pthread_mutex_unlock(philo->left_fork), 1);
+	return (0);
+}
 
 void	waitleft(t_philosopher *philo)
 {

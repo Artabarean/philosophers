@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 11:31:35 by alex              #+#    #+#             */
-/*   Updated: 2025/10/16 12:02:04 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/17 14:27:45 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	pickforks(t_philosopher *philo)
 		return (-1);
 	else if (philo->id % 2 == 0)
 	{
-		if (left_first(philo, tm) == 1 || right_first(philo, tm) == 1)
+		if (left_start(philo, tm))
 			return (-1);
 	}
 	else if (philo->id % 2 != 0)
@@ -100,9 +100,9 @@ int	philo_sleeps(t_philosopher *philo)
 	int			i;
 
 	i = 0;
-	pthread_mutex_lock(&philo->aux->printofmutex);
 	if (isdead(philo->aux) != 0)
-		return (philo->aux->stop = 1);
+		return (1);
+	pthread_mutex_lock(&philo->aux->printofmutex);
 	tm = get_current_time() - philo->aux->start_time;
 	printf("%lld %d sleeps💤\n", tm, philo->id);
 	pthread_mutex_unlock(&philo->aux->printofmutex);

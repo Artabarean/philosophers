@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:45:52 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/16 11:41:33 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/17 14:26:26 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_philosopher
 	t_aux			*aux;
 }					t_philosopher;
 
+int					left_start(t_philosopher *philo, long long tm);
 void				think(t_philosopher *philo);
 int					isdead(t_aux *aux);
 void				set_death(t_aux *aux);

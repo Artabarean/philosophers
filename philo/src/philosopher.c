@@ -6,7 +6,7 @@
 /*   By: atabarea <atabarea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:46:10 by atabarea          #+#    #+#             */
-/*   Updated: 2025/10/17 10:49:14 by atabarea         ###   ########.fr       */
+/*   Updated: 2025/10/17 14:34:59 by atabarea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	philostart(t_aux *aux, t_philosopher *philos)
 	}
 	pthread_create(&monitor_thread, NULL, monitor, (void *)philos);
 	jointhreads(aux, thds);
-	freestuff(philos->aux);
 	pthread_join(monitor_thread, NULL);
+	freestuff(philos->aux);
 	printf("simulation has ended 😁\n");
 	return (free(thds), 0);
 }
